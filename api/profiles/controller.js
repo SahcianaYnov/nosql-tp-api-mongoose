@@ -83,7 +83,7 @@ exports.deleteProfile = async (req, res) => {
 };
 
 // CREATE EXPERIENCE
-eexports.addExperience = async (req, res) => {
+exports.addExperience = async (req, res) => {
     const { id } = req.params;
     const experience = req.body;
 
