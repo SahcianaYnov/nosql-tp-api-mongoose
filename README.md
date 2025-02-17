@@ -21,10 +21,6 @@ services:
 volumes:
   mongo_data:
 
-
-# mongodb://localhost:27017/
-
-
 - Endpoint racine
 
 / ne donne plus rien
