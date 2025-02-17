@@ -1,11 +1,3 @@
-# nosql-tp-api-mongoose
-
-## Modifications pour tester
-
-- URL BDD 
-
-MONGO_URI=mongodb://localhost:27017/mongoose?authSource=admin
-
 version: '3.8'
 services:
   mongo:
@@ -23,9 +15,3 @@ volumes:
 
 
 # mongodb://localhost:27017/
-
-
-- Endpoint racine
-
-/ ne donne plus rien
-/profiles donne les profiles
