@@ -1,4 +1,5 @@
 const ProfileModel = require('./model');
+const {Types} = require("mongoose");
 
 // CREATE
 exports.createProfile = async (req, res) => {
@@ -87,9 +88,15 @@ exports.addExperience = async (req, res) => {
     const { id } = req.params;
     const experience = req.body;
 
+    const newExperience = {
+        _id: new Types.ObjectId(),
+        isDeleted: false,
+        ...experience
+    };
+
     const updatedProfile = await ProfileModel.findByIdAndUpdate(
         id,
-        { $push: { experience: experience } },
+        { $push: { experience: newExperience } },
         { new: true }
     );
 
@@ -106,12 +113,14 @@ exports.deleteExperience = async (req, res) => {
 
     const updatedProfile = await ProfileModel.findByIdAndUpdate(
         id,
-        { $pull: { experience: { _id: expId } } },
+        { $pull: { experience: { _id: expId, isDeleted: true } } },
         { new: true }
     );
 
     if (!updatedProfile) {
-        return res.status(404).json({ message: "Profile or experience not found" });
+        return res.status(404).json({
+            message: "Profile or experience not found"
+        });
     }
 
     res.json(updatedProfile);
@@ -122,9 +131,14 @@ exports.addSkill = async (req, res) => {
     const { id } = req.params;
     const { skill } = req.body;
 
+    const newSkill = {
+        _id: new Types.ObjectId(),
+        ...skill
+    };
+
     const updatedProfile = await ProfileModel.findByIdAndUpdate(
         id,
-        { $push: { skill: skill } },
+        { $push: { newSkill } },
         { new: true }
     );
 
@@ -151,3 +165,4 @@ exports.deleteSkill = async (req, res) => {
 
     res.json(updatedProfile);
 };
+
